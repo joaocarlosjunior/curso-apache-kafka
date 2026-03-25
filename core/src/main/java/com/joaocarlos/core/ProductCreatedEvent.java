@@ -1,4 +1,4 @@
-package com.joaocarlos.products.service;
+package com.joaocarlos.core;
 
 import java.math.BigDecimal;
 
