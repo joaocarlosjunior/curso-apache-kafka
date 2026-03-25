@@ -1,25 +1,64 @@
 server:
   port: 0
+  # Sobe a aplicação em uma porta aleatória (útil para testes ou múltiplas instâncias)
+
 spring:
   kafka:
     producer:
       bootstrap-servers: localhost:9092, localhost:9094, localhost:9096
+      # Lista de brokers Kafka usados para conexão inicial (cluster)
+
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # Serializa a chave da mensagem como String
+
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      # Serializa o valor da mensagem como JSON (objetos Java → JSON)
+
       acks: all
+      # Espera confirmação de TODOS os brokers (leader + réplicas)
+      # Garante maior durabilidade (mais seguro, porém mais lento)
+
       delivery:
         timeout:
           ms: 120000
+      # Tempo máximo total para tentar enviar a mensagem (inclui retries)
+      # Se passar disso → erro definitivo
+
       #retries: 10
+      # Quantidade de tentativas de reenvio em caso de falha
+      # (comentado porque com idempotência o Kafka já gerencia isso melhor)
+
       #properties:
-        #retry:
-          #backoff:
-            #ms: 1000
+      #  retry:
+      #    backoff:
+      #      ms: 1000
+      # Tempo de espera entre retries (1 segundo)
+      # Evita retries agressivos em loop
+
       properties:
         linger:
           ms: 0
+        # Tempo que o producer espera para agrupar mensagens antes de enviar
+        # 0 = envia imediatamente (menor latência, menor throughput)
+        # >0 = melhora performance com batch
+
         request:
           timeout:
             ms: 30000
+        # Tempo máximo esperando resposta do broker para UMA requisição
+
         enable:
           idempotence: true
+        # Ativa idempotência no producer
+        # Evita duplicação de mensagens em caso de retry
+        # Também garante ordem por partição
+
+        max:
+          in:
+            flight:
+              requests:
+                per:
+                  connection: 5
+        # Máximo de requisições "em voo" sem resposta
+        # 5 = limite seguro com idempotência ativada
+        # Permite paralelismo sem quebrar ordem ou gerar duplicatas
