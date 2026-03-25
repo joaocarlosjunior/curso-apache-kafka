@@ -1,7 +1,7 @@
 package com.joaocarlos.products.service.impl;
 
+import com.joaocarlos.core.ProductCreatedEvent;
 import com.joaocarlos.products.dto.ProductDTO;
-import com.joaocarlos.products.service.ProductCreatedEvent;
 import com.joaocarlos.products.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
