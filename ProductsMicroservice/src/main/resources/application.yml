@@ -21,3 +21,5 @@ spring:
         request:
           timeout:
             ms: 30000
+        enable:
+          idempotence: true
