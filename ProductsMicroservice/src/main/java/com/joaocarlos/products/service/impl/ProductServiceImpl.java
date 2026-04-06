@@ -3,6 +3,7 @@ package com.joaocarlos.products.service.impl;
 import com.joaocarlos.core.ProductCreatedEvent;
 import com.joaocarlos.products.dto.ProductDTO;
 import com.joaocarlos.products.service.ProductService;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.KafkaException;
@@ -32,6 +33,13 @@ public class ProductServiceImpl implements ProductService {
                 productId,
                 product.name(), product.price(), product.description(), product.quantity());
 
+        ProducerRecord<String, ProductCreatedEvent> record = new ProducerRecord<>(
+                "product-created-events-topic",
+                productId,
+                productCreatedEvent
+        );
+        record.headers().add("messageId", UUID.randomUUID().toString().getBytes());
+
 /*        //Evento Assincrona
         CompletableFuture<SendResult<String, ProductCreatedEvent>> future = kafkaTemplate.send("product-created-events-topic", productId, productCreatedEvent);
 
@@ -47,8 +55,11 @@ public class ProductServiceImpl implements ProductService {
         // Evento Sincrono
         SendResult<String, ProductCreatedEvent> result;
         try {
-            result = kafkaTemplate
+/*            result = kafkaTemplate
                     .send("product-created-events-topic", productId, productCreatedEvent)
+                    .get();*/
+            result = kafkaTemplate
+                    .send(record)
                     .get();
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
