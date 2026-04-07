@@ -1,4 +1,4 @@
-package com.joaocarlos.emailNotification.exceptions;
+package com.joaocarlos.core.error;
 
 public class RetryableException extends RuntimeException{
 
