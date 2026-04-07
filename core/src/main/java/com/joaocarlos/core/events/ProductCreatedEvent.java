@@ -1,4 +1,4 @@
-package com.joaocarlos.core;
+package com.joaocarlos.core.events;
 
 import java.math.BigDecimal;
 
