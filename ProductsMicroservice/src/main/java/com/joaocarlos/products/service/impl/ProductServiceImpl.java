@@ -1,6 +1,6 @@
 package com.joaocarlos.products.service.impl;
 
-import com.joaocarlos.core.events.ProductCreatedEvent;
+import com.joaocarlos.core.ProductCreatedEvent;
 import com.joaocarlos.products.dto.ProductDTO;
 import com.joaocarlos.products.service.ProductService;
 import org.apache.kafka.clients.producer.ProducerRecord;

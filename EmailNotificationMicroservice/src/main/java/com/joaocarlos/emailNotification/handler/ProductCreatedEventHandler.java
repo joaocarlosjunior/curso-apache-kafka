@@ -1,9 +1,9 @@
 package com.joaocarlos.emailNotification.handler;
 
-import com.joaocarlos.core.error.NotRetryableException;
-import com.joaocarlos.core.error.RetryableException;
-import com.joaocarlos.core.events.ProductCreatedEvent;
+import com.joaocarlos.core.ProductCreatedEvent;
 import com.joaocarlos.emailNotification.entities.ProcessedEvent;
+import com.joaocarlos.emailNotification.exceptions.NotRetryableException;
+import com.joaocarlos.emailNotification.exceptions.RetryableException;
 import com.joaocarlos.emailNotification.repository.ProcessedEventRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

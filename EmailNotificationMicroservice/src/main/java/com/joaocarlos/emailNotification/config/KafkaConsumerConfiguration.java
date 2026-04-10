@@ -1,7 +1,7 @@
 package com.joaocarlos.emailNotification.config;
 
-import com.joaocarlos.core.error.NotRetryableException;
-import com.joaocarlos.core.error.RetryableException;
+import com.joaocarlos.emailNotification.exceptions.NotRetryableException;
+import com.joaocarlos.emailNotification.exceptions.RetryableException;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
