@@ -10,6 +10,7 @@ spring:
           json:
             trusted:
               packages: "com.joaocarlos.core"
+      auto-offset-reset: earliest
   datasource:
     username: user
     password: password
